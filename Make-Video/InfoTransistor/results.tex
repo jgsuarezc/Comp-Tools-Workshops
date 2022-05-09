@@ -1,0 +1,31 @@
+
+\section{Resultados y análisis}
+\subsection{Curvas Características}
+Las curvas características, para siete valores de la corriente de base $I_{B}$ se muestra en la figura, donde las líneas rojas punteadas están delimitando la región activa, que según la gráfica se encuentra para $V_{CE}>2.0 V$, sin embargo, se debe tener en cuenta hay un límite para $V_{CE}$ que no se muestra en la figura donde el transistor entra en la región de ruptura, en ésta región no se debe trabajar el transistor ya que éste dispositivo no funciona como el diodo Zener y se puede dañar. Así mismo, en la gráfica se señala la región de saturación y la región de corte.\\
+\begin{itemize}
+
+\item La zona de corte se reconoce porque el transistor opera como un interruptor abierto y por lo tanto no hay paso de corriente, es decir $I_{C}=0$, ésto ocurre porque $V_{BB}$ es muy pequeño y no logra superar el Voltaje Umbral entre Base-Emisor.\\
+\item La región de saturación se reconoce donde $I_{C}$ es proporcional a $V_{CE}$, ésto ocurre para valores de $V_{CE}\leq 0.8 V$, así mismo a medida que aumenta $I_{B}$, se llega a un punto donde ésta es tan grande que el diodo colector-base se polariza en directo, allí se dice que el transistor está completamente saturado.\\
+\item La región activa, que es la zona normal de operación del transistor se reconoce porque es donde $I_{C}$ se mantiene contante, pues para un $I_{B}$ constante el colector está recibiendo casi todos los electrones que el emisor envía a la base, por eso, no cambia a pesar de las variaciones de $V_{CE}$.
+\end{itemize}
+
+%--------------------------------------------------------------------
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width =1\linewidth]{Shockley.png}
+    \caption{}
+    \label{fig:Curvas}
+\end{figure}
+%----------------------------------------------------------------------
+
+Se observa también en la gráfica de curvas características que, en la región activa, a medida que aumenta la corriente de la base, la curva se hace más corta, es decir $V_{CE}$ alcanza su límite en valores más pequeños.\\
+El comportamiento que se observa en la región donde $I_{C}$ es proporcional a $V_{CE}$ se explica porque el diodo del colector tiene un voltaje positivo insuficiente para colectar todos los electrones libres que llegan a la base, por eso, depende de $V_{CE}$.
+Después, en la región activa como ya se mencionó, el colector recibe casi todos los electrones que llegan a la base y por tanto se mantiene constante sin importar $V_{CE}$. Cabe anotar que en ésta región, no es del todo constante sino que tiene una pequeña pendiente que se debe a la región de la base haciéndose más angosta a medida que $V_{CE}$ incrementa, lo que deja menos huecos para la recombinación y por ende, más electrones llegan al colector.
+\section{Conclusiones}
+\begin{itemize}
+    \item Un transistor NPN en configuración de emisor común puede usarse para amplificar corrientes, siempre que la juntura emisor-base esté polarizada en directo y la juntura colector-base en inverso. El parámetro $\beta$ es un indicador de su eficiencia, para el caso del transistor 2N2222 usado en ésta práctica $\beta \approx 13.9$.
+    \item Las curvas características de salida de un transistor permiten diferenciar las diferentes regiones de funcionamiento del transistor, que son esenciales para usar el transistor con diferentes propósitos (Interruptor o Amplificador).
+    \item La recta de carga permitió en ésta practica encontrar los puntos de trabajo del transistor para diferentes corrientes de la base. Para un mejor funcionamiento, se espera que esté centrado dentro de la región activa.
+    \item Los transistores resultan bastante útiles y versátiles, tanto así que pudieron reemplazar a los tubos de vacío y con ello generar grandes avances en el desarrollo tecnológico.
+\end{itemize}

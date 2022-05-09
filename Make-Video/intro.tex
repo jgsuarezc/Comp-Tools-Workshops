@@ -1,0 +1,26 @@
+\section{Introducción}
+Durante la Segunda Guerra Mundial, el Germanio y el Silicio, que son semiconductores intrínsecos, fueron elementos de especial interés y estudio, puesto que eran usados para la fabricación de radares. Así pues, en los años de la post guerra permitieron la creación de diodos y, posteriormente, gracias a Bardeen, Brattain y Shockley, se descubrió el efecto transistor, y fue posible la creación del transistor de unión bipolar (BJT, por sus siglas en inglés).
+
+El transistor se puede entender como la unión de tres semiconductores dopados, ya sean del tipo NPN o PNP, donde,  la primera región se conoce como \textit{emisor}, en el centro se encuentra la \textit{base}, y la última región es el \textit{colector}. Un ejemplo de configuración NPN se muestra en la figura, el ancho de la base es mucho menor comparado con las otras dos regiones.
+
+Las dos junturas que se forman entre las regiones de los extremos y la base se conocen como \textit{juntura de emisor} y \textit{juntura de colector}. Los transistores se caracterizan por tener tres (3) terminales y se pueden representar en un circuito como se muestra en la figura. A pesar de que distintas configuraciones son posibles, para que funcione, el transistor debe polarizarse de manera directa en la juntura base-emisor y de manera inversa en la juntura base-colector.
+En un transistor se consideran tres diferencias de potencial que son las que existen entre sus electrodos: Emisor-Colector $V_{EC}$, Colector-Base $V_{CB}$, Base-Emisor $V_{BE}$ tal que se cumple:
+\begin{equation}
+    V_{EC}+V_{CB}+V_{BE} = 0.
+\end{equation}
+
+Así mismo se consideran tres corrientes: base ($I_{B}$), emisor ($I_{E}$) y colector ($I_{C}$); que cumplen:
+\begin{equation}
+    I_{E}+I_{B}+I_{C} = 0
+\end{equation}
+Una representación de lo anterior se muestra en la figura para ambos tipos de transistor.
+
+Como ejemplo para entender el efecto transistor se tomará un transistor NPN, similar al de la figura. Lo que ocurre cuando se conecta de manera directa la juntura base-emisor y de manera inversa base-colector ocurre lo siguiente:
+\begin{itemize}
+    \item Los portadores mayoritarios del material emisor son electrones. 
+    \item Al estar polarizada de manera directa la juntura emisor-base los electrones pasan a la región de la base.
+    \item Al ser la región de la base tan delgada, hay una recombinación por la presencia de los huecos pero la mayoría de electrones siguen libres.
+    \item La juntura base-colector esta polarizada de manera inversa, así que los electrones que pasaron a la base son atraídos por la diferencia de potencial en el terminal del colector.
+    \item Una gran cantidad de electrones en la región de la base cruzan la juntura base-colector y llegan a la región del colector, generando la corriente del colector.
+\end{itemize}
+El hecho de polarizar una juntura en directo y la otra en inverso fue lo que le dio el nombre de \textbf{Transistor de unión bipolar}, que fue el reemplazo de los tubos de vacío y años más tarde se usó para la invención de los circuitos integrados, éstos últimos han sido clave en el desarrollo tecnológicos de las últimas dos décadas. 

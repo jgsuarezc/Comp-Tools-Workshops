@@ -1,0 +1,11 @@
+Para arreglar el código los pasos fueron:
+
+1. Usar clang-format para indentar y organizar el código. Esto con el fin de que el flujo del mismo sea más claro y tenga una correcta indentación.
+
+2. Dentro de la función baz, en la linea 31 agregar semicolon al final de std::sqrt(x), para que compile.
+3. En el ciclo if de ésta misma función (baz) se está usando una asignación en vez de una condición, de modo que se cambia el = por un <, así, al compilarse con -Wall no genera un warning. Además, según la declaración de la función ésta debe retornar un double (no es void),de modo que se le asigna un return igual a la raíz del valor absoluto en caso de que x sea negativa, evitando que la función baz calcule raices de numeros negativos.
+4. En la misma función baz, la variable v se declara pero no se usa, probablemente se quería colocar sqrt(v) pero resolviendo los parentesis de v, v es lo mismo que x. Además, el no usar una variable genera warning con -Wall. Por esas dos razones,la línea donde se declara e inicializa v se comenta.
+
+
+5. En la función foo se retorna un double donde su primer y tercer término resultan en una división por cero. Lo primero que se hace es declarar la variable z con el valor del return para que sea más organizado.
+Se presentan dos casos: Cuando a=0 y b=-1 el termino b/a es una división por cero, y cuando a=1, b=o, el término a/b es una división por cero. Son términos donde éste error se alterna. Teniendo ésto en cuenta y considerando que una corrección tipo sumarle 1 al denominador genera problemas cuando éste es igual a -1 se realiza la suma de ambas fracciones como a/b+b/a=(a*a+b*b)/(a*b), se deja el denominar tal cual y el denominador se asume igual a -1 para seguir la convencipon de ii y jj.

@@ -1,0 +1,38 @@
+\section{Procedimiento Experimental}
+Para el desarrollo de la práctica se utilizaron los siguientes materiales y equipos:
+\begin{itemize}
+    \item Transistor 2N2222.
+    \item Diodo 1N4004.
+    \item Dos fuentes de voltaje variables
+    \item Resistencias
+\end{itemize}
+\subsection{Curvas Características}
+Para ésta sección se hizo un primer montaje que se muestra en la figura, lo primero que se observa es que el transistor es NPN según la figura; además tiene una configuración de \textit{emisor común}, es decir, la corriente de entrada es la corriente de la base. Para entender el funcionamiento del circuito se puede dividir en dos partes.
+
+\begin{itemize}
+    \item Circuito del colector: El diodo 1N4004 actúa como rectificador de media onda, dejando pasar solamente la parte positiva de la señal alterna del transformador como se ilustra en la figura, dado que el colector es de tipo N, queda polarizado en inverso.
+    \item Circuito de la base: La fuente DC hace que el diodo entre Base y Emisor quede polarizado en directo.
+\end{itemize}
+Se polariza el circuito del colector con una fuente de corriente alterna en vez de una fuente DC ya que facilita la variación del Voltaje sin necesidad de estar cambiando la fuente. Además, la ventaja que ofrece el uso de un transformador a un generador de señales es que éste último tiene su terminal de 'señal de referencia' conectada a tierra mientras que en un transformador no hay tierra y ésta puede ser definida.
+\lstinputlisting[language=c++]{Code/Shockley.cpp}
+
+Con el fin de poder medir al mismo tiempo la corriente del colector $I_{C}$ y el voltaje entre Emisor y Colector $V_{EC}$, hay que establecer un punto de referencia; en este caso se considera tal como se muestra en la figura  los puntos M, N y O. Al medir el Voltaje entre M y O, conociendo el valor de la resistencia se calcula la corriente $I_{C}$, por otra parte, el Voltaje entre el punto O y N, corresponde a $V_{CE}$, de modo que el punto de referencia (tierra) puede colocarse en O.
+Una alternativa para medir la corriente $I_{C}$ puede ser abriendo el circuito y colocando el amperímetro; sin embargo, no resulta tan útil, considerando que también debe medirse $V_{CE}$ en simultáneo.
+
+Así, lo primero que se hizo fue encontrar las curvas características para el transistor. Para ello, usando un osciloscopio se midió $V_{CE}$ y el voltaje a través de la resistencia del colector $V_{C}$, mientras el voltaje $V_{BB}$ variaba entre $0.56 V$ hasta $11.1 V$. Un ejemplo de toma de datos se muestra en la sección. Usando la ley de Ohm se obtiene:
+\begin{equation}
+    I_{C}=\frac{V_{C}}{178 \Omega}
+\end{equation}
+Con lo anterior se estudia el comportamiento de $I_{C}$ en función de $V_{CE}$ para diferentes valores de la corriente de la base $I_{B}$. Con los datos obtenidos, y considerando solamente el circuito de la base, se puede obtener como:
+\begin{equation}
+    I_{B}=\frac{V_{BB}-V_{BE}}{R_{B}}
+\end{equation}
+Donde $R_{B}=21.4 k\Omega$ y $V_{BE}=0.7 V$, que es el \textbf{Voltaje Umbral} o voltaje desde el cual el diodo comienza a conducir.
+\subsection{Recta de carga}
+Para ésta sección se realizó el montaje mostrado en la figura, donde se reemplazó el transformador y el diodo por una fuente de voltaje DC, con $V_{CC}=9V$. Una vez hecho lo anterior se mide nuevamente el voltaje a través de la resistencia del colector $V_{C}$ y el voltaje Colector-Emisor, $V_{CE}$ que varían a medida que cambia $V_{BB}$.
+
+Para un transistor en configuración de emisor común, la recta de carga viene dada por:
+\begin{equation}
+    I_{C} = \frac{-V_{CE}}{R_{C}}+\frac{V_{CC}}{R_{C}}
+\end{equation}
+Teniendo en cuenta los valores de las resistencias usadas en el circuito, se espera que la recta de carga esté descrita por:Así, se compara ésta recta con la obtenida de tomar los datos en los voltímetros, y se encuentra la intersección de la misma con cada una de la curvas de corriente, conocido como \textbf{punto de trabajo} Q.

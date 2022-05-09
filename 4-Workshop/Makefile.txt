@@ -1,0 +1,19 @@
+SHELL:=/bin/bash
+
+all: vector_main.x
+
+test: vector_test.x
+	./$<
+
+%.x: %.o vector_ops.o
+	source /home/dahiana/Documents/Compt-Tools/spack/share/spack/setup-env.sh; \
+	spack load catch2; \
+	g++ $$(pkg-config --cflags catch2) $^ -o $@
+
+%.o: %.cpp
+	source /home/dahiana/Documents/Compt-Tools/spack/share/spack/setup-env.sh; \
+	spack load catch2; \
+	g++ $$(pkg-config --cflags catch2) -c $<
+
+clean:
+	rm -f *.o *.x

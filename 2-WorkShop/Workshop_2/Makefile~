@@ -1,0 +1,15 @@
+normal_pdf.pdf: seed1.txt seed2.txt seed3.txt
+	gnuplot script.gp
+
+seed1.txt: random_pdf.x
+	./random_pdf.x 1.0 100000 0 1 -4.0 4.0 50 > seed1.txt
+seed2.txt: random_pdf.x
+	./random_pdf.x 2.0 100000 0 1 -4.0 4.0 50 > seed2.txt
+seed3.txt: random_pdf.x
+	./random_pdf.x 5.0 100000 0 1 -4.0 4.0 50 > seed3.txt
+
+random_pdf.x: random_pdf.cpp
+	g++ random_pdf.cpp -o random_pdf.x
+
+clean:
+	rm -f *txt
