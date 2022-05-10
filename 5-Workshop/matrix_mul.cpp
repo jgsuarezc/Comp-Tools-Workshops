@@ -6,14 +6,13 @@
 #include <numeric>
 #include <vector>
 
-// Function Declaration
 double multiply(int size);
 void statistics(double &meanT, double &stdevT, int R, int L);
 
 
 int main(int argc, char **argv) {
 
-  int R = 10; // Number of measures for each size
+  int R = 10; // Repetitions
 
   double meanT = 0.0;  // Mean, wall time
   double stdevT = 0.0; // Standard deviation, wall time
@@ -26,22 +25,18 @@ int main(int argc, char **argv) {
   return 0;
 }
 
-
-// Function implementation
 double multiply(int size) {
   // create matrices
   Eigen::MatrixXd A = Eigen::MatrixXd::Random(size, size);
   Eigen::MatrixXd B = Eigen::MatrixXd::Random(size, size);
 
   auto start = std::chrono::steady_clock::now();
-
   auto C{A * B};        // MULTIPLY
   double tmp = C(0, 0); // use the matrix to make eigen compute it
   auto end = std::chrono::steady_clock::now();
   // std::clog << tmp << std::endl; //EIGEN COMPUTES THE MULTIPLICATION WHEN tmp IS DEFINED
 
   std::chrono::duration<double> elapsed_seconds = end - start;
-
   return elapsed_seconds.count();
 }
 
