@@ -17,12 +17,10 @@ int main(int argc, char **argv) {
 
   double meanT = 0.0;  // Mean, wall time
   double stdevT = 0.0; // Standard deviation, wall time
-
-  for (int LL = 2; LL < 8192; LL *= 2) {
-    statistics(meanT, stdevT, R, LL);
+  int matrix_size = 1000;
+    statistics(meanT, stdevT, R, matrix_size);
     // Impresion en pantalla
-    std::cout << LL << '\t' << meanT << '\t' << stdevT << std::endl;
-  }
+    std::cout << matrix_size << '\t' << meanT << '\t' << stdevT << std::endl;
   return 0;
 }
 
