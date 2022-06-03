@@ -9,7 +9,7 @@ void integral_mpi(double xmin, double xmax, double n, int pid, int np);
 
 int main(int argc, char **argv)
 {
-  const int numberRects = std::atoi(argv[1]);
+  const int numberRects = 403200;
   const double lowerLimit = 2.0;
   const double upperLimit = 5.0;
 
@@ -17,14 +17,18 @@ int main(int argc, char **argv)
 
   /* problem variables */
   int pid, np;
-
+  double dx;
   /* MPI setup */
   MPI_Init(&argc, &argv);
   MPI_Comm_size(MPI_COMM_WORLD, &np);
   MPI_Comm_rank(MPI_COMM_WORLD, &pid);
 
-  integral_mpi(lowerLimit, upperLimit, numberRects, pid, np);
-
+  dx = numberRects/np;
+  double t1, t2; 
+  t1 = MPI_Wtime(); 
+  integral_mpi(lowerLimit, upperLimit, dx, pid, np);
+  t2 = MPI_Wtime();
+  std::cout << np << '\t' << t2-t1 << std::endl;
   /* finish */
   MPI_Finalize();
 
