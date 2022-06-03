@@ -23,12 +23,8 @@ int main(int argc, char **argv)
   MPI_Comm_size(MPI_COMM_WORLD, &np);
   MPI_Comm_rank(MPI_COMM_WORLD, &pid);
 
-  dx = numberRects/np;
-  double t1, t2; 
-  t1 = MPI_Wtime(); 
+  dx = numberRects/np; 
   integral_mpi(lowerLimit, upperLimit, dx, pid, np);
-  t2 = MPI_Wtime();
-  std::cout << np << '\t' << t2-t1 << std::endl;
   /* finish */
   MPI_Finalize();
 
@@ -55,6 +51,8 @@ void integral_mpi(double xmin, double xmax, double n, int pid, int np)
   double lower = xmin + range*pid;
 
   /* Calculate area for subproblem */
+  double t1, t2; 
+  t1 = MPI_Wtime();
   double area = integral_serial(lower, lower+range, n);
 
   /* Collect info and print results */
@@ -67,6 +65,8 @@ void integral_mpi(double xmin, double xmax, double n, int pid, int np)
       total += area;
     }
     fprintf(stderr, "The area from %g to %g is : %25.16e\n", xmin, xmax, total);
+    t2 = MPI_Wtime();
+    printf("Elapsed time: %f\n", t2 - t1 );
   }
   else { /* slaves only send */
     int dest = 0;
