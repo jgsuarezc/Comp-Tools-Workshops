@@ -1,5 +1,6 @@
 #include "mpi.h"
 #include <cstdio>
+#include <iostream>
 #include <cstdlib>
 
 /* Problem parameters */
@@ -9,10 +10,11 @@ void integral_mpi(double xmin, double xmax, double n, int pid, int np);
 
 int main(int argc, char **argv)
 {
-  const int numberRects = 403200;
+  const int numberRects = 4032000;
   const double lowerLimit = 2.0;
   const double upperLimit = 5.0;
-
+  //std::cout.setf(std::ios::scientific);
+  std::cout.precision(15);
   /* MPI Variables */
 
   /* problem variables */
@@ -64,9 +66,9 @@ void integral_mpi(double xmin, double xmax, double n, int pid, int np)
       MPI_Recv(&area, 1, MPI_DOUBLE, src, tag, MPI_COMM_WORLD, &status);
       total += area;
     }
-    fprintf(stderr, "The area from %g to %g is : %25.16e\n", xmin, xmax, total);
+    //fprintf(stderr, "The area from %g to %g is : %25.16e\n", xmin, xmax, total);
     t2 = MPI_Wtime();
-    printf("Elapsed time: %f\n", t2 - t1 );
+    std::cout << np << '\t'  << t2 - t1 << '\t' << total << std::endl;
   }
   else { /* slaves only send */
     int dest = 0;
