@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <cmath>
+#include <numeric>
 #include <vector>
 #include <algorithm>
 #include "mpi.h"
@@ -10,6 +11,7 @@ typedef std::vector<double> data_t; // alias
 void fill_matrix(data_t & data, int nrows, int ncols, int pid, int np);
 void print_matrix(const data_t & data, int nrows, int ncols, int pid, int np);
 void print_local(const data_t & data, int nrows, int ncols);
+double average(data_t data_bw);
 
 int main(int argc, char **argv)
 {
@@ -52,15 +54,22 @@ void fill_matrix(data_t & data, int nrows, int ncols, int pid, int np)
 void print_matrix(const data_t & data, int nrows, int ncols, int pid, int np)
 {
   /* Collect info and print results */
+  data_t bandwidth; bandwidth.resize(np-1);
   MPI_Status status;
   int tag = 0;
   if (0 == pid) { /* Master*/ 
       print_local(data, nrows, ncols);
       data_t matrix(nrows*ncols); /* To receive */
       for (int src = 1; src < np; ++src) {
+          double t1 = MPI_Wtime();
           MPI_Recv(&matrix[0], data.size(), MPI_DOUBLE, src, tag, MPI_COMM_WORLD, &status);
+          double t2 = MPI_Wtime();
+          double total_time = t2-t1;
+          bandwidth[src-1] = data.size()*sizeof(double)/total_time/1.0e6;
+          //std::cout << data.size()*sizeof(double) << "\t" << total_time << "\t" << data.size()*sizeof(double)/total_time/1.0e6 << "\t" << average(bandwidth) << "\t" << bandwidth.size() << std::endl;
           print_local(matrix, nrows, ncols);
     }
+      std::cout << "Avg. Bandwith: " << average(bandwidth) << " MB/s" << std::endl;  
   }
   else { /* slaves only send */
     int dest = 0;
@@ -76,5 +85,11 @@ void print_local(const data_t & data, int nrows, int ncols)
     std::cout << "\n";
   }
 }
+double average(data_t data_bw)
+{
+  double sum = std::accumulate(data_bw.begin(), data_bw.end(), 0.0);
+  double mean = sum / data_bw.size();
 
+  return mean;
+}
 
