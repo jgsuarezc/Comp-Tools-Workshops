@@ -6,7 +6,6 @@
 #include "mpi.h"
 
 typedef std::vector<double> data_t; // alias
-//typedef double * data_t; // alias
 
 void fill_matrix(data_t & data, int nrows, int ncols, int pid, int np);
 void print_matrix(const data_t & data, int nrows, int ncols, int pid, int np);
@@ -30,7 +29,7 @@ int main(int argc, char **argv)
 
 
   fill_matrix(data, Nlocal, N, pid, np);
-  print_matrix(data, Nlocal, N, pid, np);
+  print_matrix(data, Nlocal,N, pid, np);
 
 
   MPI_Finalize(); /* Mandatory */
@@ -50,8 +49,7 @@ void fill_matrix(data_t & data, int nrows, int ncols, int pid, int np)
       }
   }
 }
-
-void print_matrix(data_t & data, int nrows, int ncols, int pid, int np)
+void print_matrix(const data_t & data, int nrows, int ncols, int pid, int np)
 {
   /* Collect info and print results */
   MPI_Status status;
@@ -69,7 +67,6 @@ void print_matrix(data_t & data, int nrows, int ncols, int pid, int np)
     MPI_Send(&data[0], data.size(), MPI_DOUBLE, dest, tag, MPI_COMM_WORLD);
   }
 }
-
 void print_local(const data_t & data, int nrows, int ncols)
 {
   for(int ll = 0; ll < nrows; ++ll) {
