@@ -44,7 +44,6 @@ void fill_matrix(data_t & data, int nrows, int ncols, int pid, int np)
   /* Adjust problem size for sub-process */
   int idxs = data.size();
   int lower_idx = pid*idxs;
-  //std::cout << pid << '\t' << lower_idx << '\t' << upper_idx << std::endl;
   for(int ii = 0; ii < idxs; ++ii){
       if((lower_idx+ii)%ncols == (lower_idx+ii)/ncols){
           data[ii] = 1;
@@ -66,7 +65,6 @@ void print_matrix(const data_t & data, int nrows, int ncols, int pid, int np)
           double t2 = MPI_Wtime();
           double total_time = t2-t1;
           bandwidth[src-1] = data.size()*sizeof(double)/total_time/1.0e6;
-          //std::cout << data.size()*sizeof(double) << "\t" << total_time << "\t" << data.size()*sizeof(double)/total_time/1.0e6 << "\t" << average(bandwidth) << "\t" << bandwidth.size() << std::endl;
           print_local(matrix, nrows, ncols);
     }
       std::cout << "Avg. Bandwith: " << average(bandwidth) << " MB/s" << std::endl;  
