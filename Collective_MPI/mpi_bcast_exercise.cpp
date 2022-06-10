@@ -19,7 +19,8 @@ int main(int argc, char **argv)
   MPI_Comm_rank(MPI_COMM_WORLD, &pid);
 
   const int SIZE = std::atoi(argv[1]);
-  send_data_point_to_point(SIZE, pid, np);
+  //send_data_point_to_point(SIZE, pid, np);
+  send_data_collective(SIZE, pid, np);
 
   MPI_Finalize();
 
@@ -41,10 +42,10 @@ void send_data_point_to_point(int size, int pid, int np)
           t1 = MPI_Wtime();
           MPI_Send(&data[0], size, MPI_DOUBLE, dst, tag, MPI_COMM_WORLD);
           t2 = MPI_Wtime();
-          total_time = t2-t1;
+          total_time = 2*(t2-t1);
           bandwidth[dst-1] = size*sizeof(double)/total_time/1.0e6;
-          std::cout << "Avg. Bandwith: " << average(bandwidth) << " MB/s" << std::endl;
       }
+      std::cout << size <<'\t' << average(bandwidth) << std::endl;
   }
   else {
       MPI_Recv(&data[0], size, MPI_DOUBLE, root, tag, MPI_COMM_WORLD, &status);
@@ -65,8 +66,8 @@ void send_data_collective(int size, int pid, int np)
   // print size, time, bw in root
   if (0 == pid) {
     int datasize = sizeof(double)*size;
-    std::cout << datasize << "\t" << (end-start) << "\t"
-              << datasize/(end-start)/1.0e6 << "\n";
+    std::cout //<< datasize << "\t" << (end-start) << "\t"
+      << size << '\t' << datasize/(end-start)/1.0e6 << "\n";
   }
   delete [] data;
 }
