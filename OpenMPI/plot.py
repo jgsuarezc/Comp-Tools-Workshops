@@ -7,14 +7,15 @@ def f(x):
 data = pd.read_csv('data_cores.txt',sep='\s+',header=None)
 data = pd.DataFrame(data)
 
-xtheo = np.linspace(0,6,6)
+#xtheo = np.linspace(0,6,6)
 x = data[0]
-y = data[1]/0.013582818
+y = 0.013582818/(data[0]*data[1])
 plt.xlabel("n cores or process")
-plt.ylabel("Parallel SppedUp")
-plt.title("Spped Up vs the number of process")
+plt.ylabel("Parallel Efficiency")
+plt.title("Efficiency vs number of process")
 
+plt.plot(x, y,'r*')
 plt.plot(x, y,'r')
-plt.plot(xtheo,f(xtheo))
+#plt.plot(xtheo,f(xtheo))
 plt.legend(["Total Rects =12000"])
 plt.show()
